@@ -15,8 +15,7 @@ optdepends=(
   'xdg-desktop-portal: Screensharing with Wayland'
   'arrpc: Rich presence support'
 )
-provides=('vencord')
-conflicts=('vencord')
+conflicts=('vesktop-bin')
 source=("https://github.com/Vencord/Vesktop/archive/refs/tags/v${pkgver}.tar.gz"
         'vesktop.desktop'
         'vesktop.sh')
