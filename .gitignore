@@ -1,4 +1,5 @@
-*.zst
-/pkg
-/src
-/vencord-desktop-git
+*
+!.gitignore
+!.SRCINFO
+!PKGBUILD
+!vesktop.desktop
