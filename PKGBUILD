@@ -4,7 +4,7 @@ pkgname=vesktop
 _pkgname=Vesktop
 pkgdesc="Vesktop gives you the performance of web Discord and the comfort of Discord Desktop"
 pkgver=1.5.2
-pkgrel=2
+pkgrel=3
 arch=('x86_64' 'aarch64')
 url="https://github.com/Vencord/Vesktop"
 license=('GPL3')
@@ -22,6 +22,14 @@ source=("https://github.com/Vencord/Vesktop/archive/refs/tags/v${pkgver}.tar.gz"
 sha256sums=('2795891c71d3ec39fd412cf1396a3172499b58619b2e7f92ce81de3db19d5de7'
             'f279b1e469fb965cdf6dba9b4f428b0a7f28f414d84a47c6481b726adeb99c2b'
             '4a790359a465979dbf3b5d815ed0d5f3f8a381a5ae08e1b359cee40dbd81d2ad')
+
+# Temporary fix until https://github.com/Vencord/Vesktop/commit/d11a9a04ff42ff8f2baa694c9747f8570aa48f58
+# gets into a release
+prepare() {
+  cd "$_pkgname-$pkgver"
+
+  sed -i 's/pnpm@8.11.0/pnpm@9.1.0/' package.json
+}
 
 build() {
   cd "$_pkgname-$pkgver"
