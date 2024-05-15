@@ -1,8 +1,8 @@
 # Maintainer: zt <zt@zt64.dev>
 pkgname=vencord-desktop-git
 pkgdesc="A standalone Electron app that loads Discord & Vencord"
-pkgver=r312.cb55cf4
-pkgrel=3
+pkgver=r320.a8d72fa
+pkgrel=2
 
 arch=("x86_64" "aarch64")
 url="https://github.com/Vencord/Vesktop"
@@ -20,7 +20,7 @@ depends=(
   'nspr'
   'pango'
 )
-makedepends=("pnpm" "git")
+makedepends=("nodejs>=18" "git")
 optdepends=(
   'libnotify: Notifications'
   'xdg-utils: Open links, files, etc'
@@ -41,7 +41,10 @@ pkgver() {
 
 build() {
   cd "$pkgname"
-  pnpm i && pnpm package:dir
+
+  corepack pnpm i
+  corepack pnpm build
+  corepack pnpx electron-builder --dir
 }
 
 package() {
