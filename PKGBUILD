@@ -8,12 +8,29 @@
 _pkgname="vesktop"
 pkgname="$_pkgname-git"
 pkgdesc="Custom Discord desktop app with Vencord preinstalled"
-pkgver=1.5.1.r4.gdf05d12
+pkgver=1.5.2.r11.g463c423
 pkgrel=1
 url="https://github.com/Vencord/Vesktop"
 license=('GPL-3.0-only')
 arch=("any")
 
+# electron version detection
+if [ -z "$_electron_version" ]; then
+  _electron_version_request=$(
+    curl -LSsf https://github.com/Vencord/Vesktop/raw/main/package.json \
+      | grep '"electron":' \
+      | sed -Ee 's@^\s*"electron": "\^([0-9]+)\..*".*$@\1@' \
+      | sort -rV | head -1
+  )
+fi
+
+if [ -n "$_electron_version_request" ]; then
+  if pacman -Qi "electron${_electron_version_request:?}" > /dev/null 2>&1 || pacman -Qi "electron${_electron_version_request:?}-bin" > /dev/null 2>&1; then
+    : ${_electron_version:=$_electron_version_request}
+  fi
+fi
+
+# continue package
 depends=(
   "electron${_electron_version:-}"
 )
@@ -42,6 +59,11 @@ pkgver() {
     | sed -E 's/^[^0-9]*//;s/([^-]*-g)/r\1/;s/-/./g'
 }
 
+prepare() {
+  cd "$_pkgsrc"
+  sed -i 's/"pnpm@.*/"pnpm@"\,/' package.json
+}
+
 build() {
   export SYSTEM_ELECTRON_VERSION=$(< "/usr/lib/electron${_electron_version:-}/version")
   export ELECTRONVERSION=${SYSTEM_ELECTRON_VERSION%%.*}
@@ -52,7 +74,7 @@ build() {
     -i "$_pkgsrc/package.json"
 
   cd "$_pkgsrc"
-  pnpm i
+  pnpm install
   pnpm package:dir
 }
 
