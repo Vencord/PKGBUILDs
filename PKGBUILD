@@ -28,7 +28,7 @@ sha256sums=('2795891c71d3ec39fd412cf1396a3172499b58619b2e7f92ce81de3db19d5de7'
 prepare() {
   cd "$_pkgname-$pkgver"
 
-  patch -Np1 -i "../../fix-pnpm-version-mismatch.patch"
+  patch -Np1 -i "../fix-pnpm-version-mismatch.patch"
 }
 
 build() {
