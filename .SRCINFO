@@ -1,6 +1,6 @@
 pkgbase = vesktop-git
 	pkgdesc = Custom Discord desktop app with Vencord preinstalled
-	pkgver = 1.5.2.r11.g463c423
+	pkgver = 1.5.2.r19.gabd1e8c
 	pkgrel = 1
 	url = https://github.com/Vencord/Vesktop
 	arch = any

@@ -8,7 +8,7 @@
 _pkgname="vesktop"
 pkgname="$_pkgname-git"
 pkgdesc="Custom Discord desktop app with Vencord preinstalled"
-pkgver=1.5.2.r11.g463c423
+pkgver=1.5.2.r19.gabd1e8c
 pkgrel=1
 url="https://github.com/Vencord/Vesktop"
 license=('GPL-3.0-only')
@@ -59,11 +59,6 @@ pkgver() {
     | sed -E 's/^[^0-9]*//;s/([^-]*-g)/r\1/;s/-/./g'
 }
 
-prepare() {
-  cd "$_pkgsrc"
-  sed -i 's/"pnpm@.*/"pnpm@"\,/' package.json
-}
-
 build() {
   export SYSTEM_ELECTRON_VERSION=$(< "/usr/lib/electron${_electron_version:-}/version")
   export ELECTRONVERSION=${SYSTEM_ELECTRON_VERSION%%.*}
@@ -86,8 +81,15 @@ package() {
   install -Dm644 "$_pkgsrc/LICENSE" -t "$pkgdir/usr/share/licenses/$pkgname/"
 
   install -Dm755 /dev/stdin "$pkgdir/usr/bin/$_pkgname" << END
-#!/bin/sh
-exec electron${_electron_version:-} /$_install_path/$_pkgname/app.asar "\$@"
+#!/usr/bin/env sh
+XDG_CONFIG_HOME="\${XDG_CONFIG_HOME:-\$HOME/.config}"
+_FLAGS_FILE="\$XDG_CONFIG_HOME/${_pkgname}-flags.conf"
+
+if [ -r "\$_FLAGS_FILE" ]; then
+  _USER_FLAGS="\$(grep -v '^#' "\$_FLAGS_FILE")"
+fi
+
+exec electron${_electron_version:-} /$_install_path/$_pkgname/app.asar \$_USER_FLAGS "\$@"
 END
 
   install -Dm755 /dev/stdin "$pkgdir/usr/share/applications/$_pkgname.desktop" << END
