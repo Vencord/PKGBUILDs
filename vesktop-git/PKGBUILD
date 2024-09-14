@@ -1,4 +1,5 @@
 # Maintainer: zt <zt@zt64.dev>
+# Maintainer: cookie <kyliepc@proton.me>
 pkgbase=vesktop-git
 _pkgname=vesktop
 pkgname=("vesktop-git" "vesktop-electron-git")
