@@ -67,7 +67,7 @@ package_vesktop() {
 }
 
 package_vesktop-electron() {
-  pkgdesc="An Electron-based Discord app with improved Linux support Vencord using system provided electron"
+  pkgdesc="An Electron-based Discord app with improved Linux support Vencord using system provided electron. Unsupported"
   conflicts=('vesktop')
   depends=('electron')
 

@@ -29,6 +29,6 @@ pkgname = vesktop
 	conflicts = vesktop-electron
 
 pkgname = vesktop-electron
-	pkgdesc = An Electron-based Discord app with improved Linux support Vencord using system provided electron
+	pkgdesc = An Electron-based Discord app with improved Linux support Vencord using system provided electron. Unsupported
 	depends = electron
 	conflicts = vesktop
