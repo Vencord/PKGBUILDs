@@ -1,5 +1,12 @@
-*
-!.gitignore
-!.SRCINFO
-!PKGBUILD
-!vesktop.desktop
+vesktop/*
+vesktop-git/*
+!vesktop/.SRCINFO
+!vesktop/PKGBUILD
+!vesktop/vesktop.desktop
+!vesktop/vesktop.sh
+!vesktop/afterPack.js
+!vesktop-git/.SRCINFO
+!vesktop-git/PKGBUILD
+!vesktop-git/vesktop.desktop
+!vesktop-git/vesktop.sh
+!vesktop-git/afterPack.js
