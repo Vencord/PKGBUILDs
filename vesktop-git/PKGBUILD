@@ -3,7 +3,7 @@
 pkgbase=vesktop-git
 _pkgname=vesktop
 pkgname=("vesktop-git" "vesktop-electron-git")
-pkgdesc="A standalone Electron-based Discord app with improved Linux support Vencord"
+pkgdesc="A standalone Electron-based Discord app with improved Linux support Vencord (git version)"
 pkgver=r363.24fbf35
 pkgrel=1
 
@@ -73,7 +73,7 @@ package_vesktop-git() {
 }
 
 package_vesktop-electron-git() {
-  pkgdesc="An Electron-based Discord app with improved Linux support Vencord using system provided electron"
+  pkgdesc="An Electron-based Discord app with improved Linux support Vencord using system provided Electron (git version)"
   conflicts=('vesktop-git')
   depends=('electron')
 
