@@ -37,8 +37,9 @@ pkgver() {
 build_common() {
   cd "$srcdir/$_pkgname"
 
-  # Add unpacked icon extraction script
-  sed -i '/"beforePack": "scripts\/build\/sandboxFix.js",/a\ \ \ \ \ \ \ \ "afterPack": "'$srcdir'/afterPack.js",' package.json
+  # Add unpacked icon extraction script. grep needed for split package shenanigans
+  grep -q '"afterPack": "'$srcdir'/afterPack.js"' package.json || \
+    sed -i '/"beforePack": "scripts\/build\/sandboxFix.js",/a\ \ \ \ \ \ \ \ "afterPack": "'$srcdir'/afterPack.js",' package.json
 
   corepack pnpm i
   corepack pnpm package:dir

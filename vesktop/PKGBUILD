@@ -31,8 +31,9 @@ sha256sums=('615ed9275a03974a0c6486c0095cfcd0af246363a4f62ec0bdc985c763cc6334'
 build_common() {
   cd "$srcdir/$_pkgname-$pkgver"
 
-  # Add unpacked icon extraction script
-  sed -i '/"beforePack": "scripts\/build\/sandboxFix.js",/a\ \ \ \ \ \ \ \ "afterPack": "'$srcdir'/afterPack.js",' package.json
+  # Add unpacked icon extraction script. grep needed for split package shenanigans
+  grep -q '"afterPack": "'$srcdir'/afterPack.js"' package.json || \
+    sed -i '/"beforePack": "scripts\/build\/sandboxFix.js",/a\ \ \ \ \ \ \ \ "afterPack": "'$srcdir'/afterPack.js",' package.json
 
   corepack pnpm i
   corepack pnpm package:dir
