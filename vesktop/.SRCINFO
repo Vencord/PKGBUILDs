@@ -1,5 +1,5 @@
 pkgbase = vesktop
-	pkgdesc = A standalone Electron-based Discord app with improved Linux support Vencord
+	pkgdesc = A standalone Electron-based Discord app with Vencord & improved Linux support
 	pkgver = 1.5.3
 	pkgrel = 1
 	url = https://github.com/Vencord/Vesktop
@@ -29,6 +29,6 @@ pkgname = vesktop
 	conflicts = vesktop-electron
 
 pkgname = vesktop-electron
-	pkgdesc = An Electron-based Discord app with improved Linux support Vencord using system provided electron. Unsupported
+	pkgdesc = An Electron-based Discord app with Vencord & improved Linux support using system provided electron. Unsupported
 	depends = electron
 	conflicts = vesktop
