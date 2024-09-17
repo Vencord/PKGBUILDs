@@ -18,8 +18,7 @@ optdepends=(
 )
 
 provides=("vesktop")
-replaces=("vencord-desktop-git")
-conflicts=('vesktop-electron-git')
+conflicts=('vesktop-electron-git' 'vencord-desktop-git')
 
 source=("$_pkgname::git+$url.git" "vesktop.desktop" "vesktop.sh" "afterPack.js")
 
@@ -41,7 +40,8 @@ build() {
   sed -i '/"beforePack": "scripts\/build\/sandboxFix.js",/a\ \ \ \ \ \ \ \ "afterPack": "'$srcdir'/afterPack.js",' package.json
 
   corepack pnpm i
-  corepack pnpm package:dir
+  corepack pnpm build
+  corepack pnpx electron-builder --dir
 }
 
 package() {

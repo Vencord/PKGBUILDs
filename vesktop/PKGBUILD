@@ -4,7 +4,7 @@ _pkgname=Vesktop
 pkgname=vesktop
 pkgdesc="A standalone Electron-based Discord app with Vencord & improved Linux support"
 pkgver=1.5.3
-pkgrel=2
+pkgrel=3
 
 arch=("x86_64" "aarch64")
 url="https://github.com/Vencord/Vesktop"
@@ -34,7 +34,8 @@ build() {
   sed -i '/"beforePack": "scripts\/build\/sandboxFix.js",/a\ \ \ \ \ \ \ \ "afterPack": "'$srcdir'/afterPack.js",' package.json
 
   corepack pnpm i
-  corepack pnpm package:dir
+  corepack pnpm build
+  corepack pnpx electron-builder --dir
 }
 
 package() {
