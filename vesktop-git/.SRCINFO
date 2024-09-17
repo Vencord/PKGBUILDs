@@ -1,0 +1,18 @@
+pkgbase = vesktop-git
+	pkgdesc = Custom Discord desktop app with Vencord preinstalled
+	pkgver = 1.5.3.r8.g75354ad
+	pkgrel = 1
+	url = https://github.com/Vencord/Vesktop
+	arch = any
+	license = GPL-3.0-only
+	makedepends = git
+	makedepends = pnpm
+	depends = electron
+	optdepends = libnotify: Notifications
+	optdepends = xdg-utils: Open links, files, etc
+	provides = vesktop=1.5.3
+	conflicts = vesktop
+	source = vesktop::git+https://github.com/Vencord/Vesktop.git
+	sha256sums = SKIP
+
+pkgname = vesktop-git
