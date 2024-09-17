@@ -2,7 +2,7 @@
 # Maintainer: cookie <kyliepc@proton.me>
 _pkgname=Vesktop
 pkgname=vesktop
-pkgdesc="A standalone Electron-based Discord app with Vencord & improved Linux support"
+pkgdesc="An Electron-based Discord app with Vencord & improved Linux support using system provided electron. Unsupported"
 pkgver=1.5.3
 pkgrel=1
 
@@ -10,7 +10,7 @@ arch=("x86_64" "aarch64")
 url="https://github.com/Vencord/Vesktop"
 license=('GPL-3.0-only')
 
-depends=('alsa-lib' 'gtk3' 'nss')
+depends=('electron')
 makedepends=('nodejs>=18')
 optdepends=(
   'libnotify: Notifications'
@@ -18,7 +18,8 @@ optdepends=(
 )
 
 provides=("vesktop")
-conflicts=('vesktop-electron')
+replaces=("vesktop_electron")
+conflicts=('vesktop')
 
 source=("$_pkgname-$pkgver.tar.gz::https://github.com/Vencord/Vesktop/archive/v${pkgver}.tar.gz" "vesktop.desktop" "vesktop.sh" "afterPack.js")
 
@@ -33,6 +34,9 @@ build() {
   # Add unpacked icon extraction script
   sed -i '/"beforePack": "scripts\/build\/sandboxFix.js",/a\ \ \ \ \ \ \ \ "afterPack": "'$srcdir'/afterPack.js",' package.json
 
+  # Use system's electron
+  sed -i "/linux/s/^/        \"electronDist\": \"\\/usr\\/lib\\/electron\",\n/" package.json
+
   corepack pnpm i
   corepack pnpm package:dir
 }
@@ -44,7 +48,7 @@ package() {
   install -d "$pkgdir/usr/lib/$pkgname"
   install -d "$pkgdir/usr/bin"
 
-  cp -R "dist/linux-unpacked/." "$pkgdir/usr/lib/$pkgname"
+  cp "dist/linux-unpacked/resources/app.asar" "$pkgdir/usr/lib/$pkgname"
 
   install -Dm 644 "../vesktop.desktop" "$pkgdir/usr/share/applications/vesktop.desktop" # Install desktop entry
   install -Dm 644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE" # Install license

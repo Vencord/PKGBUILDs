@@ -1,8 +1,7 @@
 # Maintainer: zt <zt@zt64.dev>
 # Maintainer: cookie <kyliepc@proton.me>
-pkgbase=vesktop-git
 _pkgname=vesktop
-pkgname=("vesktop-git" "vesktop-electron-git")
+pkgname=vesktop-git
 pkgdesc="A standalone Electron-based Discord app with Vencord & improved Linux support (git version)"
 pkgver=r363.24fbf35
 pkgrel=1
@@ -12,14 +11,15 @@ url="https://github.com/Vencord/Vesktop"
 license=('GPL-3.0-only')
 
 depends=('alsa-lib' 'gtk3' 'nss')
-makedepends=('nodejs>=18' 'git' 'electron')
+makedepends=('nodejs>=18')
 optdepends=(
   'libnotify: Notifications'
   'xdg-utils: Open links, files, etc'
 )
 
 provides=("vesktop")
-replaces=("vencord-desktop-git" )
+replaces=("vencord-desktop-git")
+conflicts=('vesktop-electron-git')
 
 source=("$_pkgname::git+$url.git" "vesktop.desktop" "vesktop.sh" "afterPack.js")
 
@@ -34,29 +34,24 @@ pkgver() {
 }
 
 
-build_common() {
+build() {
   cd "$srcdir/$_pkgname"
 
-  # Add unpacked icon extraction script. grep needed for split package shenanigans
-  grep -q '"afterPack": "'$srcdir'/afterPack.js"' package.json || \
-    sed -i '/"beforePack": "scripts\/build\/sandboxFix.js",/a\ \ \ \ \ \ \ \ "afterPack": "'$srcdir'/afterPack.js",' package.json
+  # Add unpacked icon extraction script.
+  sed -i '/"beforePack": "scripts\/build\/sandboxFix.js",/a\ \ \ \ \ \ \ \ "afterPack": "'$srcdir'/afterPack.js",' package.json
 
   corepack pnpm i
   corepack pnpm package:dir
 }
 
-package_common() {
+package() {
   cd "$srcdir/$_pkgname"
 
   # Create necessary directories
   install -d "$pkgdir/usr/lib/$_pkgname"
   install -d "$pkgdir/usr/bin"
 
-  # Conditionally copy application files
-  [[ $pkgbase == $pkgname ]] && \
-    cp -R "dist/linux-unpacked/." "$pkgdir/usr/lib/$_pkgname" || \
-    cp "dist/linux-unpacked/resources/app.asar" "$pkgdir/usr/lib/$_pkgname"
-
+  cp -R "dist/linux-unpacked/." "$pkgdir/usr/lib/$_pkgname"
 
   install -Dm 644 "../vesktop.desktop" "$pkgdir/usr/share/applications/vesktop.desktop" # Install desktop entry
   install -Dm 644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE" # Install license
@@ -65,25 +60,4 @@ package_common() {
   done # Install icons
 
   install -Dm755 "../vesktop.sh" "$pkgdir/usr/bin/$_pkgname" # Start script
-}
-
-package_vesktop-git() {
-  conflicts=('vesktop-electron-git')
-  build_common
-  package_common
-}
-
-package_vesktop-electron-git() {
-  pkgdesc="An Electron-based Discord app with Vencord & improved Linux support using system provided Electron (git version). Unsupported"
-  conflicts=('vesktop-git')
-  depends=('electron')
-
-  cd "$srcdir/$_pkgname"
-
-  # Use system's electron
-  sed -i "/linux/s/^/        \"electronDist\": \"\\/usr\\/lib\\/electron\",\n/" package.json
-  sed -i "s|/usr/lib/$_pkgname/$_pkgname|electron /usr/lib/$_pkgname/app.asar|" ../vesktop.sh
-
-  build_common
-  package_common
 }

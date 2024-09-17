@@ -7,14 +7,13 @@ pkgbase = vesktop-git
 	arch = aarch64
 	license = GPL-3.0-only
 	makedepends = nodejs>=18
-	makedepends = git
-	makedepends = electron
 	depends = alsa-lib
 	depends = gtk3
 	depends = nss
 	optdepends = libnotify: Notifications
 	optdepends = xdg-utils: Open links, files, etc
 	provides = vesktop
+	conflicts = vesktop-electron-git
 	replaces = vencord-desktop-git
 	source = vesktop::git+https://github.com/Vencord/Vesktop.git
 	source = vesktop.desktop
@@ -26,9 +25,3 @@ pkgbase = vesktop-git
 	sha256sums = 122b17ce996318e533e6f2ab1c9b2961b39c3eba271c9b40f10c0da5dd738baa
 
 pkgname = vesktop-git
-	conflicts = vesktop-electron-git
-
-pkgname = vesktop-electron-git
-	pkgdesc = An Electron-based Discord app with Vencord & improved Linux support using system provided Electron (git version). Unsupported
-	depends = electron
-	conflicts = vesktop-git
