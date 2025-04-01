@@ -33,7 +33,7 @@ build() {
   # Add unpacked icon extraction script
   sed -i '/"beforePack": "scripts\/build\/sandboxFix.js",/a\ \ \ \ \ \ \ \ "afterPack": "'$srcdir'/afterPack.js",' package.json
 
-  pnpm i
+  pnpm i --frozen-lockfile
   pnpm package:dir
 }
 
