@@ -41,7 +41,7 @@ package() {
   install -d "$pkgdir/usr/lib/$pkgname"
   install -d "$pkgdir/usr/bin"
 
-  cp -R "dist/linux-unpacked/." "$pkgdir/usr/lib/$pkgname"
+  cp -R dist/linux-*unpacked/. "$pkgdir/usr/lib/$pkgname"
 
   install -Dm644 "../vesktop.desktop" "$pkgdir/usr/share/applications/vesktop.desktop" # Install desktop entry
   install -Dm644 "LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE" # Install license
