@@ -16,10 +16,8 @@ pkgbase = vesktop
 	source = Vesktop-1.5.8.tar.gz::https://github.com/Vencord/Vesktop/archive/v1.5.8.tar.gz
 	source = vesktop.desktop
 	source = vesktop.sh
-	source = afterPack.js
 	sha256sums = 63fd9df5259e0cf404caf8005adde43b85fc81550aa303d103501a3c79599957
 	sha256sums = 98fa8f661b065c2d825e24f0055a40ae01d58d23628ad7ebf6914296209dd43c
 	sha256sums = 506c246328af639d6f6a3e52215c7b34af2a6df11d195de6f57a8bbee750cce9
-	sha256sums = 122b17ce996318e533e6f2ab1c9b2961b39c3eba271c9b40f10c0da5dd738baa
 
 pkgname = vesktop
