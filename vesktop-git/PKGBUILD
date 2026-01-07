@@ -3,7 +3,7 @@
 _pkgname=vesktop
 pkgname=vesktop-git
 pkgdesc="A standalone Electron-based Discord app with Vencord & improved Linux support"
-pkgver=1.5.8.r6.g0d9ca22
+pkgver=1.6.3.r0.g0f509b0
 pkgrel=1
 
 arch=("x86_64" "aarch64")
@@ -23,7 +23,7 @@ conflicts=('vesktop')
 source=("$_pkgname::git+$url.git" "vesktop.desktop" "vesktop.sh")
 
 sha256sums=('SKIP'
-            '455c00b862aa0a7e18ca8e23d65d5c5ee4506cdfb15f1bf6f622cce39827de46'
+            '98fa8f661b065c2d825e24f0055a40ae01d58d23628ad7ebf6914296209dd43c'
             '506c246328af639d6f6a3e52215c7b34af2a6df11d195de6f57a8bbee750cce9')
 
 pkgver() {

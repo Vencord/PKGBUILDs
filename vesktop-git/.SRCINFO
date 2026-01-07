@@ -1,6 +1,6 @@
 pkgbase = vesktop-git
 	pkgdesc = A standalone Electron-based Discord app with Vencord & improved Linux support
-	pkgver = 1.5.8.r6.g0d9ca22
+	pkgver = 1.6.3.r0.g0f509b0
 	pkgrel = 1
 	url = https://github.com/Vencord/Vesktop
 	arch = x86_64
@@ -20,7 +20,7 @@ pkgbase = vesktop-git
 	source = vesktop.desktop
 	source = vesktop.sh
 	sha256sums = SKIP
-	sha256sums = 455c00b862aa0a7e18ca8e23d65d5c5ee4506cdfb15f1bf6f622cce39827de46
+	sha256sums = 98fa8f661b065c2d825e24f0055a40ae01d58d23628ad7ebf6914296209dd43c
 	sha256sums = 506c246328af639d6f6a3e52215c7b34af2a6df11d195de6f57a8bbee750cce9
 
 pkgname = vesktop-git
